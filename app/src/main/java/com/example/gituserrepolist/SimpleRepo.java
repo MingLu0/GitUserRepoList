@@ -3,9 +3,14 @@ package com.example.gituserrepolist;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * This is a data model class which defines all the data members of
+ * a repo object including getters and setters
+ */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SimpleRepo {
 
+    // data members
     @JsonProperty("name")
     private String name;
 
@@ -15,6 +20,7 @@ public class SimpleRepo {
     @JsonProperty("html_url")
     private String html_url;
 
+    //getters
     @JsonProperty("name")
     public String getName(){
         return name;
@@ -30,6 +36,7 @@ public class SimpleRepo {
         return html_url;
     }
 
+    //setters
     @JsonProperty("name")
     public void setName(String name){
         this.name = name;
