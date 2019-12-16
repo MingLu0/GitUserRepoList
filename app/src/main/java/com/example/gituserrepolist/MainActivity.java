@@ -23,12 +23,7 @@ public class MainActivity extends AppCompatActivity {
         btn_fetch = findViewById(R.id.btn_fetch);
         txt_input_name = findViewById(R.id.editText_name);
 
-        btn_fetch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fetchRepos(txt_input_name.getText().toString());
-            }
-        });
+        btn_fetch.setOnClickListener(v -> fetchRepos(txt_input_name.getText().toString()));
 
     }
 
