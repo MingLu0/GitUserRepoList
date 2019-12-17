@@ -46,11 +46,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         mAdapter = new RepoAdapter(mRepos);
         recyclerView.setAdapter(mAdapter);
-
-
 
         btn_fetch.setOnClickListener(v -> fetchRepos(txt_input_name.getText().toString()));
 
@@ -90,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mAdapter = new RepoAdapter(mRepos);
                 recyclerView.setAdapter(mAdapter);
+
 
             }
 

@@ -1,5 +1,8 @@
 package com.example.gituserrepolist;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +23,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
 
     /**
      * Constructor
-     * @param repoList a list of SimpleRepo objects to provide data for each row view
+     * @param repoList data source list
      */
     public RepoAdapter(@Nullable @NonNull List<SimpleRepo>repoList){
         this.repoList = repoList;
@@ -51,8 +54,13 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.txt_row_name.setText(repoList.get(position).getName());
+        holder.txt_row_name.setOnClickListener(v -> {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(repoList.get(position).getHtml_url()));
+            v.getContext().startActivity(browserIntent);
+        });
 
     }
+
 
     /**
      * This methods gets the number of items in the data list or 0 if the list is null
