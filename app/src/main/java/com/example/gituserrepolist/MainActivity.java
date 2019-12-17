@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -83,18 +84,23 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0;i<mRepos.size();i++){
                         Log.d(TAG,mRepos.get(i).getName());
                     }
+
+                    mAdapter = new RepoAdapter(mRepos);
+                    recyclerView.setAdapter(mAdapter);
+
+                } else {
+
+                    Toast toast = Toast.makeText(MainActivity.this, "There was an error", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                    toast.show();
+
                 }
-
-                mAdapter = new RepoAdapter(mRepos);
-                recyclerView.setAdapter(mAdapter);
-
 
             }
 
             @Override
             public void onFailure(Call<List<SimpleRepo>> call, Throwable t) {
-
-                Toast.makeText(MainActivity.this, "something wrong", Toast.LENGTH_SHORT).show();
+                
 
             }
         });
