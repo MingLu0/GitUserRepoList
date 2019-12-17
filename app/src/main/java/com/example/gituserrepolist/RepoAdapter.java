@@ -1,6 +1,5 @@
 package com.example.gituserrepolist;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -81,6 +80,10 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
 
         TextView txt_row_name;
 
+        /**
+         * Constructor
+         * @param itemView single view item in the reyclerview
+         */
         public ViewHolder(View itemView){
             super(itemView);
             txt_row_name = itemView.findViewById(R.id.text_row_name);

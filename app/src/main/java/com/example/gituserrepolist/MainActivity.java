@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     private final String TAG = MainActivity.this.getClass().getSimpleName();
 
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new RepoAdapter(mRepos);
         recyclerView.setAdapter(mAdapter);
@@ -100,12 +102,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<SimpleRepo>> call, Throwable t) {
-                
+
 
             }
         });
 
     }
-
 
 }
