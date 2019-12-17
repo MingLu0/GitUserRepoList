@@ -3,6 +3,8 @@ package com.example.gituserrepolist;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -28,15 +30,27 @@ public class MainActivity extends AppCompatActivity {
     private GitHubService mService;
     private List<SimpleRepo>mRepos;
 
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+
     private final String TAG = MainActivity.this.getClass().getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         btn_fetch = findViewById(R.id.btn_fetch);
         txt_input_name = findViewById(R.id.editText_name);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+        mAdapter = new RepoAdapter(mRepos);
+        recyclerView.setAdapter(mAdapter);
+
+
 
         btn_fetch.setOnClickListener(v -> fetchRepos(txt_input_name.getText().toString()));
 
@@ -73,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                         Log.d(TAG,mRepos.get(i).getName());
                     }
                 }
+
+                mAdapter = new RepoAdapter(mRepos);
+                recyclerView.setAdapter(mAdapter);
 
             }
 
