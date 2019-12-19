@@ -1,7 +1,6 @@
 package com.example.gituserrepolist;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,17 +22,14 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn_fetch;
     private EditText txt_input_name;
 
     private Retrofit mRetrofit;
-    private String BASE_URL = "https://api.github.com/users/";
     private GitHubService mService;
     private List<SimpleRepo>mRepos;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private final String TAG = MainActivity.this.getClass().getSimpleName();
 
@@ -41,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btn_fetch = findViewById(R.id.btn_fetch);
+        Button btn_fetch = findViewById(R.id.btn_fetch);
         txt_input_name = findViewById(R.id.editText_name);
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         mAdapter = new RepoAdapter(mRepos);
@@ -55,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         btn_fetch.setOnClickListener(v -> fetchRepos(txt_input_name.getText().toString()));
 
         if(mRetrofit == null){
+            String BASE_URL = "https://api.github.com/users/";
             mRetrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
                     .addConverterFactory(JacksonConverterFactory.create())
@@ -72,41 +69,50 @@ public class MainActivity extends AppCompatActivity {
      *
      * @param user the name of the git repo user provided by user input.
      */
-    private void fetchRepos(@Nullable @NonNull String user){
+    private void fetchRepos( @NonNull String user){
 
-        Call<List<SimpleRepo>> call = mService.listRepos(user);
+        if(!user.isEmpty()){
+            Call<List<SimpleRepo>> call = mService.listRepos(user);
 
-        call.enqueue(new Callback<List<SimpleRepo>>() {
+            call.enqueue(new Callback<List<SimpleRepo>>() {
 
-            @Override
-            public void onResponse(Call<List<SimpleRepo>> call, Response<List<SimpleRepo>> response) {
+                @Override
+                public void onResponse(@NonNull Call<List<SimpleRepo>> call, @NonNull Response<List<SimpleRepo>> response) {
 
-                mRepos = response.body();
-                if(mRepos!=null){
-                    for(int i=0;i<mRepos.size();i++){
-                        Log.d(TAG,mRepos.get(i).getName());
+                    mRepos = response.body();
+                    if(mRepos!=null){
+                        for(int i=0;i<mRepos.size();i++){
+                            Log.d(TAG,mRepos.get(i).getName());
+                        }
+
+                        mAdapter = new RepoAdapter(mRepos);
+                        recyclerView.setAdapter(mAdapter);
+
+                    } else {
+
+                        Toast toast = Toast.makeText(MainActivity.this, "There was an error", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+                        toast.show();
+
                     }
-
-                    mAdapter = new RepoAdapter(mRepos);
-                    recyclerView.setAdapter(mAdapter);
-
-                } else {
-
-                    Toast toast = Toast.makeText(MainActivity.this, "There was an error", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
-                    toast.show();
 
                 }
 
-            }
-
-            @Override
-            public void onFailure(Call<List<SimpleRepo>> call, Throwable t) {
+                @Override
+                public void onFailure(@NonNull Call<List<SimpleRepo>> call, @NonNull Throwable t) {
 
 
-            }
-        });
+                }
+            });
+        } else {
+
+            Toast toast = Toast.makeText(MainActivity.this, "User Name Can Not Be Empty", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+
+        }
 
     }
+
 
 }

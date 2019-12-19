@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
 
-    private List<SimpleRepo> repoList;
+    private  List<SimpleRepo> repoList;
 
     /**
      * Constructor
      * @param repoList data source list
      */
-    public RepoAdapter(@Nullable @NonNull List<SimpleRepo>repoList){
+    public RepoAdapter(@Nullable List<SimpleRepo>repoList){
         this.repoList = repoList;
     }
 
@@ -78,13 +78,13 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.ViewHolder> {
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txt_row_name;
+        final TextView txt_row_name;
 
         /**
          * Constructor
          * @param itemView single view item in the reyclerview
          */
-        public ViewHolder(View itemView){
+        ViewHolder(View itemView){
             super(itemView);
             txt_row_name = itemView.findViewById(R.id.text_row_name);
         }

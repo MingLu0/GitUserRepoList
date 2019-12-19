@@ -1,7 +1,6 @@
 package com.example.gituserrepolist;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import java.util.List;
 
@@ -25,5 +24,5 @@ public interface GitHubService {
      *         method.
      */
     @GET("{userName}/repos")
-    Call<List<SimpleRepo>>listRepos(@NonNull @Nullable @Path("userName") String name);
+    Call<List<SimpleRepo>>listRepos(@NonNull @Path("userName") String name);
 }

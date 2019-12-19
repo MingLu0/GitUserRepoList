@@ -1,7 +1,6 @@
 package com.example.gituserrepolist;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,17 +40,17 @@ public class SimpleRepo {
 
     //setters
     @JsonProperty("name")
-    public void setName(@Nullable @NonNull String name){
+    public void setName(@NonNull String name){
         this.name = name;
     }
 
     @JsonProperty("description")
-    public void setDescription(@Nullable @NonNull String description) {
+    public void setDescription(@NonNull String description) {
         this.description = description;
     }
 
     @JsonProperty("html_url")
-    public void setHtml_url(@Nullable @NonNull String html_url) {
+    public void setHtml_url(@NonNull String html_url) {
         this.html_url = html_url;
     }
 
